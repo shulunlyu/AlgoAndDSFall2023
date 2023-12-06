@@ -77,7 +77,7 @@ class Solution:
 
     # Question5 Deepest Leaves Sum
 
-    def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
+    def deepestLeavesSum(self, root: Optional[TreeNode]):
         q = collections.deque()
         q.append(root)
         res = []
@@ -92,3 +92,18 @@ class Solution:
                 level.append(curr.val)
             res.append(level)
         return sum(res[-1])
+
+    # Question6 Find Leaves of Binary Tree
+
+    def findLeaves(self, root: Optional[TreeNode]):
+        res = []
+        def dfs(node):
+            if not node:
+                return 0
+            maxDepth = max(dfs(node.left),dfs(node.right)) + 1
+            if len(res)<maxDepth:
+                res.append([])
+            res[(maxDepth-1)].append(node.val) 
+            return maxDepth
+        dfs(root)
+        return res
